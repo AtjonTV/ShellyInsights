@@ -8,8 +8,10 @@
 #  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 package ShellySDK::Devices::EM;
+
 use strict;
 use warnings FATAL => 'all';
+use v5.34.0;
 
 use ShellySDK::RPC;
 

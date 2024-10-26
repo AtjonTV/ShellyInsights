@@ -11,6 +11,7 @@ package ShellySDK::RPC;
 
 use strict;
 use warnings FATAL => 'all';
+use v5.34.0;
 
 use HTTP::Request ();
 use LWP::UserAgent;
