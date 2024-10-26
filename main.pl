@@ -13,7 +13,7 @@ use warnings FATAL => 'all';
 use v5.34.0;
 
 use lib 'lib/';
-use ShellySDK::Devices::EM 0.1;
+use ShellySDK::RPC::EM 0.1;
 
 sub get_status() {
     my $new_status = ShellySDK::Devices::EM::get_status("10.1.0.90")->{'current_watts'};
