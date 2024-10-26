@@ -14,6 +14,8 @@ use v5.34.0;
 
 use lib 'lib/';
 use ShellySDK::RPC::EM 0.1;
+use ShellySDK::RPC::Shelly 0.1;
+use Util 0.1;
 
 my $device_ip = "10.1.0.90";
 
@@ -21,11 +23,16 @@ sub get_status() {
     my $new_status = ShellySDK::RPC::EM::get_status($device_ip)->{'current_watts'};
     return $new_status;
 }
+sub get_uptime() {
+    my $new_status = ShellySDK::RPC::Shelly::get_status($device_ip)->{'uptime'};
+    my $formatted = Util::format_uptime($new_status);
+    return $formatted;
+}
 
 use Prima 1.74 qw(Application Buttons Label MDI Menus);
 
 my $wnd = Prima::MDIWindowOwner->new(
-    text      => 'Shelly Insights v0.0.4',
+    text      => 'Shelly Insights v0.0.5',
     menuItems => [
         [ '~File' => [
             [ '~Exit', 'Alt+X', '@X', sub {exit} ],
@@ -67,20 +74,19 @@ sub mdi_pro_3em {
         pack                       => { side => "top" },
     );
     $row2->insert(Label =>
-        text            => 'Last Update: ',
+        text            => 'Uptime: ',
         pack            => { side => "left" },
     );
-    my $lblTimestamp = $row2->insert(Label =>
+    my $lblUptime = $row2->insert(Label =>
         text                               => '???',
         pack                               => { side => "left" },
     );
 
     my $timer = Prima::Timer->create(
-        timeout => 500, # milliseconds
+        timeout => 1000, # milliseconds
         onTick  => sub {
-            my $new_status = get_status();
-            $lblWatts->set_text($new_status);
-            $lblTimestamp->set_text(scalar localtime);
+            $lblWatts->set_text(get_status());
+            $lblUptime->set_text(get_uptime());
         },
     );
     $timer->start();
