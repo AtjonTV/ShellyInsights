@@ -13,9 +13,9 @@ use strict;
 use warnings FATAL => 'all';
 use v5.34.0;
 
-use HTTP::Request ();
-use LWP::UserAgent;
-use JSON::MaybeXS qw(encode_json decode_json);
+use HTTP::Request 6.36 ();
+use LWP::UserAgent 6.61;
+use JSON::MaybeXS 1.004008 qw(encode_json decode_json);
 
 our $rpc_id = 0;
 sub send_rpc($$$) {

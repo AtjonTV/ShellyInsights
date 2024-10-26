@@ -21,7 +21,7 @@ sub get_status() {
     return $new_status;
 }
 
-use Prima qw(Application Buttons Label MDI Menus);
+use Prima 1.74 qw(Application Buttons Label MDI Menus);
 
 my $wnd = Prima::MDIWindowOwner->new(
     text      => 'Shelly Insights v0.0.4',
