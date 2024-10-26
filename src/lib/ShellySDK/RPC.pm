@@ -24,10 +24,10 @@ sub send_rpc($$$) {
     my $params = shift;
 
     my $url = "http://$ip/rpc";
-    my $header = ['Content-Type' => 'application/json; charset=UTF-8'];
+    my $header = [ 'Content-Type' => 'application/json; charset=UTF-8' ];
     # copy rpc_id and use it for the request
     my $this_id = $rpc_id;
-    my $data = {id => $this_id, method => $method, params => $params};
+    my $data = { id => $this_id, method => $method, params => $params };
     my $encoded_data = encode_json($data);
 
     my $request = HTTP::Request->new('POST', $url, $header, $encoded_data);
@@ -56,12 +56,13 @@ sub send_rpc($$$) {
             }
             $result{'status'} = 0;
             return %result;
-        } else {
-            return {status => -1, error => "response id does not match request id"};
+        }
+        else {
+            return { status => -1, error => "response id does not match request id" };
         }
     }
     my $http_status = $response->status_line();
-    return {status => -2, error => "http response is $http_status"};
+    return { status => -2, error => "http response is $http_status" };
 }
 
 1;

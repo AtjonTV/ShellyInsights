@@ -44,18 +44,18 @@ sub mdi_pro_3em {
     );
 
     my $box = $mdi->client->insert(Widget =>
-        expand => 1,
-        pack => {side => "top"},
+        expand                            => 1,
+        pack                              => { side => "top" },
     );
 
     my $lblWatts = $box->insert(Label =>
-        text                     => 'Watts: ???',
-        pack                     => { side => "left" },
+        text                          => 'Watts: ???',
+        pack                          => { side => "left" },
     );
 
     my $lblTimestamp = $box->insert(Label =>
-        text                     => 'Watts: ???',
-        pack                     => { side => "left" },
+        text                              => 'Watts: ???',
+        pack                              => { side => "left" },
     );
 
     my $timer = Prima::Timer->create(
