@@ -33,14 +33,14 @@ my $wnd = Prima::MDIWindowOwner->new(
             [ '~Current Power', '', '', \&mdi_pro_3em ],
         ] ],
     ],
-    style     => "classic"
+    style     => "classic",
 );
 
 sub mdi_pro_3em {
     my $mdi = $wnd->insert('MDI',
         text     => "Power",
         size     => [ 400, 100 ],
-        centered => => 1,
+        centered => 1
     );
 
     my $box = $mdi->client->insert(Widget =>
@@ -69,4 +69,4 @@ sub mdi_pro_3em {
     $timer->start();
 }
 
-run Prima;
+Prima->run();
