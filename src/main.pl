@@ -48,22 +48,38 @@ sub mdi_pro_3em {
         pack                              => { side => "top" },
     );
 
-    my $lblWatts = $box->insert(Label =>
-        text                          => 'Watts: ???',
-        pack                          => { side => "left" },
+    my $row1 = $box->insert(Widget =>
+        pack                       => { side => "top" },
+        left                       => 0
     );
 
-    my $lblTimestamp = $box->insert(Label =>
-        text                              => 'Watts: ???',
-        pack                              => { side => "left" },
+    $row1->insert(Label =>
+        text            => 'Watts: ',
+        pack            => { side => "left" },
+    );
+    my $lblWatts = $row1->insert(Label =>
+        text                           => '???',
+        pack                           => { side => "left" },
+    );
+
+    my $row2 = $box->insert(Widget =>
+        pack                       => { side => "top" },
+    );
+    $row2->insert(Label =>
+        text            => 'Last Update: ',
+        pack            => { side => "left" },
+    );
+    my $lblTimestamp = $row2->insert(Label =>
+        text                               => '???',
+        pack                               => { side => "left" },
     );
 
     my $timer = Prima::Timer->create(
         timeout => 500, # milliseconds
         onTick  => sub {
             my $new_status = get_status();
-            $lblWatts->set_text("Watts: $new_status");
-            $lblTimestamp->set_text("Last Update: " . scalar localtime);
+            $lblWatts->set_text($new_status);
+            $lblTimestamp->set_text(scalar localtime);
         },
     );
     $timer->start();
