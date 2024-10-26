@@ -7,7 +7,7 @@
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-package shelly_insights 1.0;
+package ShellySDK 0.1;
 
 use strict;
 use warnings FATAL => 'all';
