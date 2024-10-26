@@ -7,7 +7,7 @@
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-package ShellySDK::RPC 0.1;
+package ShellySDK::RPC 0.2;
 
 use strict;
 use warnings FATAL => 'all';
@@ -17,17 +17,56 @@ use HTTP::Request 6.36 ();
 use LWP::UserAgent 6.61;
 use JSON::MaybeXS 1.004008 qw(encode_json decode_json);
 
-our $rpc_id = 0;
-sub send_rpc($$$) {
-    my $ip = shift;
+sub payload_with_params($$) {
     my $method = shift;
     my $params = shift;
 
-    my $url = "http://$ip/rpc";
-    my $header = [ 'Content-Type' => 'application/json; charset=UTF-8' ];
+    return { id => 0, method => $method, params => $params };
+}
+
+sub payload_only_method($) {
+    my $method = shift;
+    return { id => 0, method => $method };
+}
+
+sub _rec_rewrite_hash {
+    my $in_hash = shift;
+    my $in_iter = shift;
+
+    if ($in_iter > 10) {
+        print("ShellySDK::RPC::rec_rewrite_hash reached recursion limit of 10 iterations.\n");
+        exit(-1);
+    }
+
+    my %out_hash = ();
+
+    foreach my $key (keys %$in_hash) {
+        my $value = $in_hash->{$key};
+        if (defined($value)) {
+            if (UNIVERSAL::isa( $value, 'HASH' )) {
+                # print("$in_iter Key: $key\n");
+                $out_hash{$key} = _rec_rewrite_hash($value, $in_iter + 1);
+            } else {
+                # print("$in_iter Key: $key\n");
+                # print("$in_iter Value: " . $value . "\n\n");
+                $out_hash{$key} = $value;
+            }
+        }
+    }
+    return \%out_hash;
+}
+
+our $rpc_id = 0;
+sub send_rpc($$) {
+    my $ip = shift;
+    my $data = shift;
+
     # copy rpc_id and use it for the request
     my $this_id = $rpc_id;
-    my $data = { id => $this_id, method => $method, params => $params };
+    $data->{'id'} = $this_id;
+
+    my $url = "http://$ip/rpc";
+    my $header = [ 'Content-Type' => 'application/json; charset=UTF-8' ];
     my $encoded_data = encode_json($data);
 
     my $request = HTTP::Request->new('POST', $url, $header, $encoded_data);
@@ -44,16 +83,7 @@ sub send_rpc($$$) {
         # validate the response is for this request.
         if ($json->{'id'} == $this_id) {
             my %result = ();
-
-            my $raw_result = $json->{'result'};
-            foreach my $key (keys %$raw_result) {
-                my $value = $raw_result->{$key};
-                if (defined($value)) {
-                    # print("Key: $key\n");
-                    # print("Value: " . $raw_result->{$key} . "\n\n");
-                    $result{'data'}{$key} = $raw_result->{$key};
-                }
-            }
+            $result{'data'} = _rec_rewrite_hash($json->{'result'}, 0);
             $result{'status'} = 0;
             return %result;
         }
