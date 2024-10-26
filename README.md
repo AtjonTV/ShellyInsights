@@ -15,7 +15,7 @@ The default settings of the Shelly already allow for local un-authenticated API 
 
 * [Perl v5.34](https://www.perl.org/get.html#unix_like), Scripting Language
 * [Prima v1.74](https://metacpan.org/dist/Prima), GUI Toolkit
-* **LOCAL** [ShellySDK v0.1](/src/lib/ShellySDK.pm), Shelly RPC SDK
+* **LOCAL** [ShellySDK v0.1](/lib/ShellySDK.pm), Shelly RPC SDK
   * [HTTP::Request v6.36](https://metacpan.org/pod/HTTP::Request), HTTP Request/Response
   * [LWP::UserAgent v6.61](https://metacpan.org/pod/LWP::UserAgent), headless User Agent
   * [JSON::MaybeXS v1.004008](https://metacpan.org/pod/JSON::MaybeXS), JSON Encoder/Decoder
@@ -25,7 +25,7 @@ Developed and Tested on `TUXEDO OS 3` (`Ubuntu 22.04`).
 
 ## Execution
 
-If you have installed all non-local dependencies using CPAN, you can simply run `src/main.pl` from within the `src/` directory.
+If you have installed all non-local dependencies using CPAN, you can simply run the `main.pl` script.
 
 # License
 
