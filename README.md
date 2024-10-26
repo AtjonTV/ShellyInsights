@@ -4,7 +4,7 @@
 > It is far from production grade software, and will never come close.  
 > Use at your own risk.
  
-ShellyInsights is a desktop app that allows fetching and show statistics from a [Shelly Pro 3EM](https://www.shelly.com/products/shelly-pro-3em-x1) power monitor.
+ShellyInsights is a desktop app that allows fetching and show statistics from a [Shelly Pro 3EM](https://www.shelly.com/products/shelly-pro-3em-x1) energy monitor.
 
 The Shelly must be installed properly, according to its manual, and connected to a network.  
 
@@ -26,6 +26,13 @@ Developed and Tested on `TUXEDO OS 3` (`Ubuntu 22.04`).
 ## Execution
 
 If you have installed all non-local dependencies using CPAN, you can simply run the `main.pl` script.
+
+## Documentation
+
+* [Shelly RPC protocol](https://shelly-api-docs.shelly.cloud/gen2/General/RPCProtocol)
+* [Shelly RPC over HTTP](https://shelly-api-docs.shelly.cloud/gen2/General/RPCChannels#http)
+* [Shelly RPC namespace - EM](https://shelly-api-docs.shelly.cloud/gen2/ComponentsAndServices/EM)
+* [Shelly RPC namespace - EMData](https://shelly-api-docs.shelly.cloud/gen2/ComponentsAndServices/EMData)
 
 # License
 
