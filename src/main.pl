@@ -11,18 +11,20 @@ sub get_status {
     return $new_status;
 }
 
-use Prima qw(Application Buttons Label);
+use Prima qw(Application MDI Buttons Label);
 
-my $wnd = Prima::MainWindow->new(
-    text => 'Shelly Insights v0.0.1',
-    size => [ 400, 100 ],
-    skin => "classic"
+my $wnd = Prima::MDIWindowOwner->new(
+    text => 'Shelly Insights v0.0.3',
+);
+my $mdi = $wnd->insert('MDI',
+    text => "Pro 3EM",
+    size => [ 200, 100 ],
 );
 
 sub mdi_pro_3em {
-    my $box = $wnd->insert(Widget =>
+    my $box = $mdi->client->insert(Widget =>
         expand => 1,
-        pack => {side => "top"}
+        pack => {side => "top"},
     );
 
     my $lbl = $box->insert(Label =>
