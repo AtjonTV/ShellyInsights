@@ -29,17 +29,18 @@ my $wnd = Prima::MDIWindowOwner->new(
         [ '~File' => [
             [ '~Exit', 'Alt+X', '@X', sub {exit} ],
         ] ],
-        [ '~Devices' => [
-            [ '~Pro 3EM', '', '', \&mdi_pro_3em ],
+        [ '~Widgets' => [
+            [ '~Current Power', '', '', \&mdi_pro_3em ],
         ] ],
     ],
-    style     => "flat"
+    style     => "classic"
 );
 
 sub mdi_pro_3em {
     my $mdi = $wnd->insert('MDI',
-        text => "Pro 3EM",
-        size => [ 200, 100 ],
+        text     => "Power",
+        size     => [ 400, 100 ],
+        centered => => 1,
     );
 
     my $box = $mdi->client->insert(Widget =>
@@ -47,7 +48,12 @@ sub mdi_pro_3em {
         pack => {side => "top"},
     );
 
-    my $lbl = $box->insert(Label =>
+    my $lblWatts = $box->insert(Label =>
+        text                     => 'Watts: ???',
+        pack                     => { side => "left" },
+    );
+
+    my $lblTimestamp = $box->insert(Label =>
         text                     => 'Watts: ???',
         pack                     => { side => "left" },
     );
@@ -56,7 +62,8 @@ sub mdi_pro_3em {
         timeout => 500, # milliseconds
         onTick  => sub {
             my $new_status = get_status();
-            $lbl->set_text("Watts: $new_status");
+            $lblWatts->set_text("Watts: $new_status");
+            $lblTimestamp->set_text("Last Update: " . scalar localtime);
         },
     );
     $timer->start();
