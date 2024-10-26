@@ -15,9 +15,10 @@ use v5.34.0;
 use lib 'lib/';
 use ShellySDK::RPC::EM 0.1;
 
+my $device_ip = "10.1.0.90";
+
 sub get_status() {
-    my $new_status = ShellySDK::Devices::EM::get_status("10.1.0.90")->{'current_watts'};
-    $new_status = int($new_status);
+    my $new_status = ShellySDK::RPC::EM::get_status($device_ip)->{'current_watts'};
     return $new_status;
 }
 

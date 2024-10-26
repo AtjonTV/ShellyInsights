@@ -13,12 +13,12 @@ use strict;
 use warnings FATAL => 'all';
 use v5.34.0;
 
-use ShellySDK::RPC;
+use ShellySDK::RPC 0.2;
 
 sub get_status($) {
     my $ip = shift;
 
-    my %resp = ShellySDK::RPC::send_rpc($ip, "EM.GetStatus", { id => "0" });
+    my %resp = ShellySDK::RPC::send_rpc($ip, ShellySDK::RPC::payload_with_params("EM.GetStatus", { id => "0" }));
     if ($resp{'status'} == -1 || $resp{'status'} == -2) {
         return "Failed to send request";
     }
@@ -27,7 +27,7 @@ sub get_status($) {
     my $current_watts = $data->{'total_act_power'};
 
     return {
-        current_watts => $current_watts,
+        current_watts => int($current_watts),
     };
 }
 
