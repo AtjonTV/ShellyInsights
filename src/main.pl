@@ -21,17 +21,27 @@ sub get_status() {
     return $new_status;
 }
 
-use Prima qw(Application MDI Buttons Label);
+use Prima qw(Application Buttons Label MDI Menus);
 
 my $wnd = Prima::MDIWindowOwner->new(
-    text => 'Shelly Insights v0.0.3',
-);
-my $mdi = $wnd->insert('MDI',
-    text => "Pro 3EM",
-    size => [ 200, 100 ],
+    text      => 'Shelly Insights v0.0.4',
+    menuItems => [
+        [ '~File' => [
+            [ '~Exit', 'Alt+X', '@X', sub {exit} ],
+        ] ],
+        [ '~Devices' => [
+            [ '~Pro 3EM', '', '', \&mdi_pro_3em ],
+        ] ],
+    ],
+    style     => "flat"
 );
 
 sub mdi_pro_3em {
+    my $mdi = $wnd->insert('MDI',
+        text => "Pro 3EM",
+        size => [ 200, 100 ],
+    );
+
     my $box = $mdi->client->insert(Widget =>
         expand => 1,
         pack => {side => "top"},
@@ -51,6 +61,5 @@ sub mdi_pro_3em {
     );
     $timer->start();
 }
-mdi_pro_3em();
 
 run Prima;
