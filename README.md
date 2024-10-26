@@ -19,6 +19,9 @@ The default settings of the Shelly already allow for local un-authenticated API 
   * [HTTP::Request v6.36](https://metacpan.org/pod/HTTP::Request), HTTP Request/Response
   * [LWP::UserAgent v6.61](https://metacpan.org/pod/LWP::UserAgent), headless User Agent
   * [JSON::MaybeXS v1.004008](https://metacpan.org/pod/JSON::MaybeXS), JSON Encoder/Decoder
+* **LOCAL** [Util v0.1](./lib/Util.pm), Utils
+  * [DateTime::Duration v1.65](https://metacpan.org/dist/DateTime), DateTime library
+  * [DateTime::Format::Duration v1.04](https://metacpan.org/dist/DateTime-Format-Duration), DateTime formatter
 
 Later versions may also work, but have not been tested.  
 Developed and Tested on `TUXEDO OS 3` (`Ubuntu 22.04`).
