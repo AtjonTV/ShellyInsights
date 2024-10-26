@@ -15,7 +15,7 @@ use v5.34.0;
 
 use ShellySDK::RPC;
 
-sub get_status {
+sub get_status($) {
     my $ip = shift;
 
     my %resp = ShellySDK::RPC::send_rpc($ip, "EM.GetStatus", {id => "0"});

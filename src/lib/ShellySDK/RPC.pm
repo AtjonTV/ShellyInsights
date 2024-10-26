@@ -18,7 +18,7 @@ use LWP::UserAgent;
 use JSON::MaybeXS qw(encode_json decode_json);
 
 our $rpc_id = 0;
-sub send_rpc {
+sub send_rpc($$$) {
     my $ip = shift;
     my $method = shift;
     my $params = shift;
