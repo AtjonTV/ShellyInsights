@@ -28,7 +28,7 @@ Developed and Tested on `TUXEDO OS 3` (`Ubuntu 22.04`).
 
 ## Execution
 
-If you have installed all non-local dependencies using CPAN, you can simply run the `main.pl` script.
+If you have installed all non-local dependencies using CPAN, you can simply run the `shelly_insights.pl` script.
 
 ## Documentation
 
